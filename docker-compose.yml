@@ -1,0 +1,73 @@
+version: '3.8'
+services:
+  na-esquina-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    environment:
+      APP_ENV: ${APP_ENV:-local}
+    volumes:
+      - .:/var/www
+    ports:
+      - 8000:8000
+    networks:
+     - na-esquina-app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint: > 
+      sh -c "echo 'Esperando pelo banco de dados...';
+      chmod +x ./docker/entrypoint.sh;
+      ./docker/entrypoint.sh;
+      " 
+
+  postgres:
+    build:
+      context: .
+      dockerfile: docker/postgres/Dockerfile
+    restart: always
+    ports:
+      - 5433:5432
+    expose:
+      - 5432
+    volumes:
+      - .docker/db-pgsql:/var/lib/postgres
+    environment:
+      - POSTGRES_USER=elmojerry
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=naesquina
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "elmojerry", "-d", "naesquina"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - na-esquina-app
+
+  app-adminer:
+    image: adminer
+    container_name: adminer-na-esquina
+    ports:
+      - 8080:8080
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DESIGN=price
+    networks:
+      - na-esquina-app
+    depends_on:
+      - postgres
+
+  redis-cache: 
+    image: redis:latest
+    container_name: redis-na-esquina
+    ports:
+      - 6379
+    expose:
+      - 6379
+    environment:
+      - REDIS_PASSWORD=secret
+    networks:
+      - na-esquina-app
+
+networks:
+  na-esquina-app:
