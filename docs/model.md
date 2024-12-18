@@ -1,48 +1,54 @@
-### Adress 
+### 1 - Adress: 
 
-adress_id : bigInt, primary key, unique
-user_id : foreign key
-type : enum (shipping, billing, store)
-adress_line1 : string
-adress_line2 : string
-city : string 
-state : string
-created_at : datetime
-update_at : datetimee
+#### objetivo: endereços de entrega e faturamento para usuários e vendedores.
 
-### User 
+- adress_id : bigInt, primary key, unique
+- user_id : foreign key
+- type : enum (shipping, billing, store)
+- adress_line1 : string
+- adress_line2 : string
+- city : string 
+- state : string
+- created_at : datetime
+- update_at : datetimee
+
+### 2 - Role:
+
+#### objetivo: Perfis e permissões de acesso no sistema.
+
+- role_id : bigInt, primary key, unique
+- name : string
+- created_at : datetime
+- updated_at : datetime
+
+
+### 3 - User: 
+
+#### objetivo: Armazena informações dos usuários (compradores, vendedores e administração do marketplace).
 
 - user_id : uuid, primary key, unique
+- role_id : foreign key
 - name : string
 - email : string
 - phone : string
-- role : string
 - birthday : date time
 - city : string
 - avatar_url : string
 - status : enum (banned, verfied, pending)
 - password : string
 
-### Whishlist
 
-- wishlist_id : bigInt, primary key, unique
-- user_id : foreign key
-- product_id : foreign key
-- created_at : datetime
+### 4 - Customer: 
 
-### User_preferences
-- user_preferences_id : bigInt, primary key, unique
-- user_id : foreign key
-- category_id or brand_id : foreign key
-- type : enum (category, brand)
-
-### Customer
+#### objetivo: Detalhes adicionais dos compradores
 
 - customer_id : uuid, primary key, unique
 - user_id : foregin key
-- adress : string
+- adress_id : foreign key
 
-### Store 
+### 5 - Store:
+
+#### objetivo: Detalhes específicos sobre os vendedores, como loja, documentos, status de verificação, etc.
 
 - store_id : uuid, primary key, unique
 - user_id : foreign key
@@ -89,6 +95,25 @@ update_at : datetimee
 - is_primary : boolean
 - created_at : datetime
 - updated_at : datetime
+
+
+### Whishlist
+
+#### objetivo: Armazenar informações dos produtos desejado pelo usuário
+
+- wishlist_id : bigInt, primary key, unique
+- user_id : foreign key
+- product_id : foreign key
+- created_at : datetime
+
+### User_preferences
+
+#### objetivo: Armazenar as preferências de cada usuário (categorias e marcas)
+
+- user_preferences_id : bigInt, primary key, unique
+- user_id : foreign key
+- category_id or brand_id : foreign key
+- type : enum (category, brand)
 
 ### Product reviews
 
