@@ -58,46 +58,69 @@
 - nif : string, unique
 - logo_url : string
 
-### Category
+### 6 - Category:
+
+#### objetivo: Armazenar as categorias e sub-categorias de produtos
 
 - category_id : bigInt , primary key, unique
 - parent_category_id : foreign key
 - name : string
 - image_url : string
 
-### Brand 
+### 7 - Brand: 
+
+#### objetivo: Armazenar as marcas de produtos 
 
 - brand_id : bigInt , primary key, unique
 - name : string
 - image_url : string
 
-### Product 
+### 8 - Discounts:
+
+#### objetivo: Armazenar os discontos 
+
+- discount_id : ulid, primary key, unique
+- store_id : foreign
+- name : string
+- discount_percentage: float
+- start_date : datetime
+- end_date : datetime
+- applicable_to : enum (product, category, global)
+- created_at : datetime
+- updated_at : datetime
+
+### 9 - Product:
+
+#### objetivo: Os produtos registrados no marketplace
 
 - product_id : ulid, primary key, unique 
 - store_id : foregin key
 - category_id : foregin key
-- brand_id : foregin key
+- brand_id : foreign key
+- discount_id : foreign key
 - user_id : foregin key
 - name : string
 - description : string
 - price : float
-- discount_price : float
 - slug : string
 - stock: integer
 - created_at : datetime
 - updated_at : datetime
 
 
-### Product Image 
+### 10 - Product Image:
+
+#### objetivo: Armazena os links para as imagens dos produtos
 
 - product_image_id : bigInt, primary key, unique
+- product_id : foreign key
 - url : string
 - is_primary : boolean
 - created_at : datetime
 - updated_at : datetime
 
 
-### Whishlist
+### 11 - Whishlist:
 
 #### objetivo: Armazenar informações dos produtos desejado pelo usuário
 
@@ -106,7 +129,7 @@
 - product_id : foreign key
 - created_at : datetime
 
-### User_preferences
+### 12 - User_preferences:
 
 #### objetivo: Armazenar as preferências de cada usuário (categorias e marcas)
 
@@ -115,7 +138,9 @@
 - category_id or brand_id : foreign key
 - type : enum (category, brand)
 
-### Product reviews
+### 13 - Product reviews:
+
+#### objetivo: Avaliações de cada produto
 
 - product_reviews_id : bigInt, primary key, unique
 - product_id : foreign key
@@ -125,31 +150,25 @@
 - created_at : datetime
 - updated_at : datetime
 
-### Discounts
 
-- discount_id : ulid, primary key, unique
-- name : string
-- discount_percentage: float
-- start_date : datetime
-- end_date : datetime
-- applicable_to : enum (product, category, global)
-- created_at : datetime
-- updated_at : datetime
+### 14 - Coupons:
 
-### Coupons
+#### objetivo: Gerencia os coupons de desconto
 
 - coupons_id : ulid, primary key, unique
 - code : string
-- discount_value : string
+- discount_id : foreign key
 - minimum_order_value : integer
 - expiration_date : datetime
 - usage_limit : integer
 - used_count : integer
-- status : enum (active, desactive)
+- status : enum (active, inactive)
 - created_at : datetime
 - updated_at : datetime
 
-### Promotion
+### 15 - Promotion:
+
+#### objetivo: Gerenciar as promoções
 
 - promotion_id : bigInt, primary key, unique
 - name : string
@@ -161,7 +180,9 @@
 - created_at : datetime
 - updated_at : datetime
 
-### Shipping methods
+### 16 - Shipping methods:
+
+#### objetivo: Métodos de envio disponíveis para o marketplace.
 
 - shipping_methods_id : bigInt, primary key, unique
 - name : string
@@ -171,24 +192,31 @@
 - created_at : datetime
 - updated_at : datetime
 
-### Shipping rates
+### 17 - Shipping rates: 
 
-- shipping_rates_id
-- shipping_method_id (relacionado a shipping_methods)
-- region
-- base_rate
-- rate_per_kg
-- created_at
-- updated_at
+#### objetivo: Tarifas e prazos de entrega com base em regiões e métodos de envio.
 
-### Payments
+- shipping_rates_id : bigInteger, primary key, unique
+- shipping_method_id : foreign key
+- region : string
+- base_rate : integer
+- rate_per_kg : float
+- created_at : datetime
+- updated_at : datetime
+
+### 18 - Payments:
+
+#### objetivo: Métodos de pagamento aceitos no marketplace.
+
 - payment_id : bigInt, primary key, unique
 - method_name : string (cash, express, card)
 - status : enum (active, inactive)
 - created_atInt
 - updated_at
 
-### Order
+### 19 - Order:
+
+#### objetivo: Pedidos 
 
 - order_id : uuid. primary key, unique
 - store_id : foreign key
@@ -202,7 +230,9 @@
 - delivered_at
 - created_at
 
-### Order Items
+### 20 - Order Items:
+
+#### objetivo: Cada produto de um pedido
 
 - items_id : ulid, primary key, unique 
 - order_id : foreign key
