@@ -1,0 +1,1 @@
+ Em caso de ser um vendedor sem o nif da loja, pode usar o seu nif pessoal.

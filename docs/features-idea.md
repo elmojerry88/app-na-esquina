@@ -1,0 +1,1 @@
+Fazer upload de documentos de identidade, ou da loja.
