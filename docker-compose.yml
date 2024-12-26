@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
+    container_name: na-esquina-app
     environment:
       APP_ENV: ${APP_ENV:-local}
     volumes:

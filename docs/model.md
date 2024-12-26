@@ -57,14 +57,16 @@
 - email_info : string
 - nif : string, unique
 - logo_url : string
+- status : enum (pending, verified, banned)
 
-### 6 - Category:
+### 6 - Categories:
 
 #### objetivo: Armazenar as categorias e sub-categorias de produtos
 
 - category_id : bigInt , primary key, unique
 - parent_category_id : foreign key
 - name : string
+- slug : string
 - image_url : string
 
 ### 7 - Brand: 

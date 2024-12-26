@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('user_id')->unique();
+            $table->foreignId('role_id')->references('role_id')->on('roles')
+            ->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->date('birthday');
+            $table->string('avatar_url')->nullable();
+            $table->enum('status', ['banned', 'verfied', 'pending']);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -29,7 +35,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
+            $table->foreignUuid('user_id')->references('user_id')->on('users')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->longText('payload');
