@@ -18,6 +18,7 @@
 
 - role_id : bigInt, primary key, unique
 - name : string
+- type: enum (store, marketplace)
 - created_at : datetime
 - updated_at : datetime
 

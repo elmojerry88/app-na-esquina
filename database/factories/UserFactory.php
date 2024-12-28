@@ -26,6 +26,7 @@ class UserFactory extends Factory
         return [
             'name' => 'elmo',
             'role_id' => \App\Models\Role::factory(),
+            "birthday" => fake()->date('Y-m-d'),
             'email' => 'elmo@gmail.com',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('12345678'),
