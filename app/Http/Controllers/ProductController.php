@@ -8,7 +8,7 @@ class ProductController extends Controller
 {
     public function teste(){
         
-        $teste = 'elmoooooooo';
+        $teste = 'elmoooooooow';
         $laravelVersion = '1.0';
         $phpVersion = phpversion();
 

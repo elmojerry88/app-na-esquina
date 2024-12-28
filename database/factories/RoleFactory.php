@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Role>
@@ -17,7 +19,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            "name" => $this->faker->randomElement(['admin', 'manager', 'store-admin', 'store-manager']),
         ];
     }
 }

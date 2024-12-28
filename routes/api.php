@@ -11,3 +11,5 @@ Route::get('/', function (Request $request) {
 
 
 Route::get('/teste', [ProductController::class,'teste']);
+
+Route::get('/login', [App\Http\Controllers\Auth\AuthenticatedSessionController::class,'store']);

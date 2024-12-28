@@ -11,6 +11,21 @@ class AuthService
     }
     public function login(){
 
+        #recebe os dados validados 
+
+        #busca os dados no repositório 
+
+        #verifica a palavra passe
+
+        #caso estiver certa, chama o metódo para gerar o token e coloca em uma variavél
+
+        #prepara os dados com uma resource
+
+        #adiciona o token na lista
+
+        #retorna os dados 
+
+
     }
 
     public function logout(){
